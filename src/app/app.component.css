@@ -1,0 +1,21 @@
+  .e-dragclonerow {
+    font-family: fantasy;
+  }
+  
+ .e-treegrid .e-rowcell.customFontColorRed {
+    background-color: #ecedee !important;
+    font-family: "Bell MT"!important;
+    color: "red"!important;
+    font-size: "20px"!important;
+  }
+  
+.e-treegrid .e-headercell.customFontColorRed  {
+    background-color: #2382c3!important;
+    color: red!important;
+    font-family: "Bell MT"!important;
+    font-size: "20px"!important;
+  }
+  .e-treegrid .e-grid td.e-updatedtd{
+    background-color:pink;
+  }
+  
