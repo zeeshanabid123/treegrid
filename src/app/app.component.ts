@@ -461,15 +461,15 @@ export class AppComponent {
 
   contextMenuOpen(arg: any) {
     debugger;
-    let contextMenuObj = (arg.element as any).ej2_instances[0];
-    let check: Element = createCheckBox(createElement, false, {
-      label: 'test',
-      checked: 'Option 2' == 'Option 2' ? true : false,
-    });
-    contextMenuObj.element.appendChild(check);
-    if (arg.element.id == 'drag' || arg.element.id == 'MultiSelect') {
+    // let contextMenuObj = (arg.element as any).ej2_instances[0];
+    // let check: Element = createCheckBox(createElement, false, {
+    //   label: 'test',
+    //   checked: 'Option 2' == 'Option 2' ? true : false,
+    // });
+    // contextMenuObj.element.appendChild(check);
+    // if (arg.element.id == 'drag' || arg.element.id == 'MultiSelect') {
    
-    }
+    // }
     if (arg.event.target.closest('.e-headercell') != null) {
       this.columnIndex = parseInt(
         arg.event.target.closest('.e-headercell').ariaColIndex
