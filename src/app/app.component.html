@@ -7,7 +7,7 @@ childMapping='subtasks'
 allowReordering='true'
 (contextMenuClick)='contextMenuClick($event)'
 (contextMenuOpen)="contextMenuOpen($event)"
-(beforeItemRender)='itemRenderRows($event)'
+(queryCellInfo)='queryCellInfo($event)' (headerCellInfo)='headerCellInfo($event)'
 [allowResizing]='true'   height='500' 
 [treeColumnIndex]='1' [columns]='columns'  [pageSettings]='pageSettings' [editSettings]='editing' [toolbar]='toolbar'>
 
@@ -68,7 +68,8 @@ allowReordering='true'
 
 <div class="form-group" style="padding-top: 11px;">
   <div class="e-float-input">
-    <ejs-dropdownlist id='ddlelement1' #ddlelement1 [dataSource]='customfontdropdown' id="fontsyle" formControlName="fontsyle" name="fontsyle" [fields]='fontfields' ></ejs-dropdownlist>
+    <input type="text" id="fontsyle" name="fontsyle" class="required" formControlName="fontsyle">
+
     <span class="e-float-line"></span>
     <label class="e-float-text e-label-top" for="contact">Font Style</label>
   </div>

@@ -229,7 +229,10 @@ export class AppComponent {
       headerText: [null],
       columnwidth: [null],
       columndataType: [null],
-      fontsyle:[null]
+      fontsyle:[null],
+      backgroundcolor:[null],
+      fontcolor:[null],
+      fontsize:[null]
     });
     this.editing = {
       allowEditing: true,
@@ -390,6 +393,7 @@ export class AppComponent {
     if (args.item.id === 'NewCol') {
       this.Dialog.show();
       this.columnName = '';
+      this.form.reset();
       this.headercontextmenu?.close();
     }
 
@@ -506,6 +510,25 @@ export class AppComponent {
       args.element.appendChild(check);
     }
   }
+
+       // customize header-cell styles 
+       headerCellInfo(args: any){ 
+         debugger;
+        if(args.cell.column.field == 'CustomerName'){ 
+            args.node.classList.add('e-cus') 
+        } 
+    } 
+
+  
+    // customize cell styles 
+    queryCellInfo(args: any){ 
+      debugger;
+        if(args.column.field == this.form.value['fieldName']){ 
+            args.cell.style.backgroundColor = this.form.value['fontsyle'];
+           
+           // args.cell.classList.add('font-size',this.form.value['fontsize']);
+          }
+      }
   public beforeClose(args: BeforeOpenCloseMenuEventArgs) {
     if ((args.event.target as Element).closest('.e-menu-item')) {
       args.cancel = true;
@@ -579,17 +602,18 @@ export class AppComponent {
           headerText: this.form.value['headerText'],
           width: this.form.value['columnwidth'],
           type: this.form.value['columndataType'],
-          customAttributes: { style: this.form.value['fontsyle'] }
+          customAttributes: { class: this.form.value['fontsyle'] }
 
         };
         this.columns.push(p);
-        this.grid!.refreshColumns();
-        this.form.reset();
+     
+       // this.form.reset();
         this.Dialog.hide();
       }
     } else {
       this.validateAllFormFields(this.form);
     }
+    this.grid!.refreshColumns();
   }
 
   isFieldValid(field: string) {
