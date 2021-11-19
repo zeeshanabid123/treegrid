@@ -7,8 +7,9 @@ childMapping='subtasks'
 allowReordering='true'
 (contextMenuClick)='contextMenuClick($event)'
 (contextMenuOpen)="contextMenuOpen($event)"
+
 (queryCellInfo)='queryCellInfo($event)' (headerCellInfo)='headerCellInfo($event)'
-[allowResizing]='true'   height='500' 
+[allowResizing]='true'  
 [treeColumnIndex]='1' [columns]='columns'  [pageSettings]='pageSettings' [editSettings]='editing' [toolbar]='toolbar'>
 
 </ejs-treegrid>
@@ -21,7 +22,7 @@ allowReordering='true'
  (select)='select($event)'   id='contextmenu'  [items]= 'headermenuItems' (beforeItemRender)='itemRender($event)' (beforeOpen)="contextMenuOpen($event)" (beforeClose)='beforeClose($event)'></ejs-contextmenu>
 </div>
 
-<ejs-dialog id="reactDialog" #FormDialog  [isModal]='true' [visible]='false' width='400'
+<ejs-dialog id="reactDialog" #FormDialog  [isModal]='true' [visible]='false' width='400' style="max-height:100%!important;"
 [showCloseIcon]='true' target='body'
 >
 <form id="reactive" [formGroup]="form">
@@ -58,9 +59,9 @@ allowReordering='true'
   
 <div class="form-group" style="padding-top: 11px;">
   <div class="e-float-input">
-    <ejs-dropdownlist id='ddlelement' #ddlelement [dataSource]='dropdowndata' id="columndataType" formControlName="columndataType" name="columndataType" [fields]='fields' ></ejs-dropdownlist>
+    <ejs-dropdownlist id='ddlelement' #ddlelement [dataSource]='dropdowndata' placeholder="Column Data Type"  id="columndataType" formControlName="columndataType" name="columndataType" [fields]='fields' ></ejs-dropdownlist>
     <span class="e-float-line"></span>
-    <label class="e-float-text e-label-top" for="contact">Column Data Type</label>
+    <!-- <label class="e-float-text e-label-top" for="columndataType">Column Data Type</label> -->
   </div>
   <!-- <app-field-error-display [displayError]="isFieldValid('contact')" errorMsg="* Enter your contact number">
   </app-field-error-display> -->

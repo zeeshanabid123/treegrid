@@ -18,5 +18,7 @@
   .e-treegrid .e-grid td.e-updatedtd{
     background-color:pink;
   }
- 
+  ejs-dialog {
+    max-height: 775px !important;
+  }
   

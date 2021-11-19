@@ -331,7 +331,7 @@ export class AppComponent {
     this.form.controls['headerText'].setValue(singlecolumn.headerText);
     this.form.controls['columnwidth'].setValue(singlecolumn.width);
     this.form.controls['columndataType'].setValue(singlecolumn.type);
-    this.form.controls['fontsyle'].setValue(singlecolumn.customAttributes);
+    //this.form.controls['fontsyle'].setValue(singlecolumn.customAttributes);
 
   }
   deleteColumn(columnName: any) {
@@ -590,7 +590,7 @@ export class AppComponent {
         singlecolumn.headerText = this.form.value['headerText'];
         singlecolumn.width = this.form.value['columnwidth'];
         singlecolumn.type = this.form.value['columndataType'];
-        singlecolumn.customAttributes =  this.form.value['fontsyle'];
+        //singlecolumn.customAttributes =  this.form.value['fontsyle'];
 
 
         this.grid!.refreshColumns();
@@ -602,7 +602,7 @@ export class AppComponent {
           headerText: this.form.value['headerText'],
           width: this.form.value['columnwidth'],
           type: this.form.value['columndataType'],
-          customAttributes: { class: this.form.value['fontsyle'] }
+         // customAttributes: { class: this.form.value['fontsyle'] }
 
         };
         this.columns.push(p);
