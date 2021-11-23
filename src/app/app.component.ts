@@ -40,6 +40,7 @@ export class AppComponent {
   public pager: Object | undefined;
   public editSettings: Object | undefined;
   public contextMenuItems: any;
+  public emtyarray:any[]=[];
   @ViewChild('dialog')
   public alertDialog!: DialogComponent;
   @ViewChild('FormDialog')
@@ -91,27 +92,39 @@ export class AppComponent {
   }
  
 
-  // public menuItems: MenuItemModel[] = [
-  //   {
-  //     text: 'Row Drag and drop enable',
-  //     id: 'drag',
-  //   },
-  //   {
-  //     text: 'AddChild',
-  //     id: 'AddChild',
-  //   },
+  public menuItems: MenuItemModel[] = [
+    {
+      text: 'Row Drag and drop enable',
+        id: 'drag',
+    },
+    {
+      text: 'Click to Enable MultiSelect',
+      id: 'MultiSelect',
+    },
+    { text: 'Copy', id: 'customCopy'},
+    { text: 'Paste', id: 'customPaste' },
+    { text: 'cut', id: 'customcut'},
+    {
+      text: 'Edit',
+      iconCss: 'e-icons e-edit',
+    },
 
-  //   {
-  //     text: 'Click to Enable Edit rows',
-  //     id: 'EditRow',
-  //   },
-  //   {
-  //     text: 'Click to Enable MultiSelect',
-  //     id: 'MultiSelect',
-  //   },
-  //   { text: 'Copy', id: 'customCopy' },
-  //   { text: 'Paste', id: 'customPaste' },
-  // ];
+    {
+      text: 'AddRow',
+    },
+  
+    {
+      text: 'Delete',
+    },
+    {
+      text: 'Save',
+    },
+    {
+      text: 'Cancel',
+    },
+
+    
+  ];
   public headermenuItems: MenuItemModel[] = [
     {
       text: 'Edit Column',
@@ -405,6 +418,17 @@ export class AppComponent {
       this.deleteColumn(this.columnName);
       this.headercontextmenu?.close();
     }
+
+    if (args.item.text === 'Edit') {
+      debugger;
+      if (this.grid!.getSelectedRecords().length) {
+        this.grid!.startEdit();
+      } else {
+        alert('Select any row');
+      }
+    }
+    
+  
     // if (args.item.id === 'drag') {
     //   if (this.grid!.allowRowDragAndDrop) {
     //     this.grid!.allowRowDragAndDrop = false;
@@ -501,6 +525,7 @@ export class AppComponent {
   }
   public itemRenderRows(args: any) {
     debugger;
+  
     if (args.element.id == 'drag' || args.element.id == 'MultiSelect') {
       let check: Element = createCheckBox(createElement, false, {
         label: args.item.text,
@@ -523,8 +548,10 @@ export class AppComponent {
     // customize cell styles 
     queryCellInfo(args: any){ 
       debugger;
-        if(args.column.field == this.form.value['fieldName']){ 
-            args.cell.style.backgroundColor = this.form.value['fontsyle'];
+      this.emtyarray!=  JSON.parse(localStorage.getItem('gridCol')!);
+        if(this.emtyarray.find(x=>x.field==args.column.field)){ 
+         let color= this.emtyarray.find(x=>x.field==args.column.field);
+            args.cell.style.backgroundColor = color.celltype;
            
            // args.cell.classList.add('font-size',this.form.value['fontsize']);
           }
@@ -602,9 +629,24 @@ export class AppComponent {
           headerText: this.form.value['headerText'],
           width: this.form.value['columnwidth'],
           type: this.form.value['columndataType'],
+          celltype:this.form.value['fontsyle']
          // customAttributes: { class: this.form.value['fontsyle'] }
 
         };
+
+        if( localStorage.getItem("gridCol")===null ||  localStorage.getItem("gridCol")===undefined){
+         
+         this.emtyarray!.push(p);
+          localStorage.setItem("gridCol", JSON.stringify(this.emtyarray!));  
+
+        }
+        else{
+      
+         this.emtyarray!=  JSON.parse(localStorage.getItem('gridCol')!);
+         this.emtyarray!.push(p);
+         localStorage.setItem("gridCol", JSON.stringify(this.emtyarray!));  
+     
+        }
         this.columns.push(p);
      
        // this.form.reset();
