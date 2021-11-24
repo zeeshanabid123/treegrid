@@ -33,14 +33,14 @@ import { DropDownListComponent } from '@syncfusion/ej2-angular-dropdowns';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-    encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
   title = 'sync-function';
   public pager: Object | undefined;
   public editSettings: Object | undefined;
   public contextMenuItems: any;
-  public emtyarray:any[]=[];
+  public emtyarray: any[] = [];
   @ViewChild('dialog')
   public alertDialog!: DialogComponent;
   @ViewChild('FormDialog')
@@ -58,7 +58,7 @@ export class AppComponent {
   columnIndex: number = 0;
   columnName: string = '';
   public selectOptions!: Object;
-  constructor(@Inject(FormBuilder) public formBuilder: FormBuilder) {}
+  constructor(@Inject(FormBuilder) public formBuilder: FormBuilder) { }
   public form!: FormGroup;
   public width: string = '335px';
   public visible: boolean = false;
@@ -70,40 +70,40 @@ export class AppComponent {
   public cellIndex: number | undefined;
   // cut paste data start
   public fieldData: any = [];
-  public cutIndex : any;
-  public flag : any = false;
+  public cutIndex: any;
+  public flag: any = false;
   // cut paste data end
   private formSumitAttempt!: boolean;
 
- 
+
   @ViewChild('ddlelement')
   public dropDownListObject = DropDownListComponent;
-   // defined the array of data
-   public dropdowndata: { [key: string]: Object }[] = [ { Id: 'string', Game: 'string' },
-   { Id: 'number', Game: 'number' }, { Id: 'boolean', Game: 'boolean' }, { Id: 'date', Game: 'date' }];
-   public fields: Object = { text: 'Game', value: 'Id' };
+  // defined the array of data
+  public dropdowndata: { [key: string]: Object }[] = [{ Id: 'string', Game: 'string' },
+  { Id: 'number', Game: 'number' }, { Id: 'boolean', Game: 'boolean' }, { Id: 'date', Game: 'date' }];
+  public fields: Object = { text: 'Game', value: 'Id' };
 
-   public customfontdropdown: { [key: string]: Object }[] = [ { Id: 'customFontColorRed', font: 'customFontColorRed' },
-   { Id: 'customFontColorGreen', font: 'customFontColorGreen' }];
-   public fontfields: Object = { text: 'font', value: 'Id' };
+  public customfontdropdown: { [key: string]: Object }[] = [{ Id: 'customFontColorRed', font: 'customFontColorRed' },
+  { Id: 'customFontColorGreen', font: 'customFontColorGreen' }];
+  public fontfields: Object = { text: 'font', value: 'Id' };
   public uploadInput: string = '';
   public Submit(): void {
     this.onFormSubmit();
   }
- 
+
 
   public menuItems: MenuItemModel[] = [
     {
       text: 'Row Drag and drop enable',
-        id: 'drag',
+      id: 'drag',
     },
     {
       text: 'Click to Enable MultiSelect',
       id: 'MultiSelect',
     },
-    { text: 'Copy', id: 'customCopy'},
+    { text: 'Copy', id: 'customCopy' },
     { text: 'Paste', id: 'customPaste' },
-    { text: 'cut', id: 'customcut'},
+    { text: 'cut', id: 'customcut' },
     {
       text: 'Edit',
       iconCss: 'e-icons e-edit',
@@ -111,10 +111,12 @@ export class AppComponent {
 
     {
       text: 'AddRow',
+      id: 'addrow'
     },
-  
+
     {
       text: 'Delete',
+      id: 'delete'
     },
     {
       text: 'Save',
@@ -123,7 +125,7 @@ export class AppComponent {
       text: 'Cancel',
     },
 
-    
+
   ];
   public headermenuItems: MenuItemModel[] = [
     {
@@ -180,37 +182,45 @@ export class AppComponent {
     this.data = sampleData;
     this.columns = [
       {
-        field: 'taskID',
-        headerText: 'Task ID',
+        field: 'id',
+        headerText: 'ID',
         isPrimaryKey: true,
         validationRules: '',
         edit: 'editparams',
-        visible:false
+        visible: false
       },
       {
-        field: 'taskName',
-        headerText: 'Task Name',
+        field: 'first_name',
+        headerText: 'First Name',
+        editType: 'stringedit',
+        validationRules: '',
+      },
+
+      {
+        field: 'last_name',
+        headerText: 'Last Name',
         editType: 'stringedit',
         validationRules: '',
       },
       {
-        field: 'startDate',
-        HeaderText: 'Start Date',
-        format: 'yMd',
-        editType: 'datepickeredit',
+        field: 'email',
+        headerText: 'Email Address',
+        editType: 'stringedit',
+        validationRules: '',
       },
       {
-        field: 'endDate',
-        HeaderText: 'End Date',
-        format: 'yMd',
-        editType: 'datepickeredit',
+        field: 'gender',
+        headerText: 'Gender',
+        editType: 'stringedit',
+        validationRules: '',
       },
       {
-        field: 'duration',
-        HeaderText: 'Duration',
+        field: 'ip_address',
+        headerText: 'IP Address',
         editType: 'numericedit',
+        validationRules: '',
       },
-   
+
     ];
     this.contextMenuItems = [
       {
@@ -223,11 +233,11 @@ export class AppComponent {
         id: 'MultiSelect',
         target: '.e-content',
       },
-      { text: 'Copy', id: 'customCopy' ,     target: '.e-content', },
-      { text: 'Paste', id: 'customPaste' ,      target: '.e-content',},
-      { text: 'cut', id: 'customcut' ,      target: '.e-content',},
+      { text: 'Copy', id: 'customCopy', target: '.e-content', },
+      { text: 'Paste', id: 'customPaste', target: '.e-content', },
+      { text: 'cut', id: 'customcut', target: '.e-content', },
 
-     
+
       'AddRow',
       'Edit',
       'Delete',
@@ -235,17 +245,17 @@ export class AppComponent {
       'Cancel',
     ];
 
-  
- 
+
+
     this.form = this.formBuilder.group({
       fieldName: [null, Validators.required],
       headerText: [null],
       columnwidth: [null],
       columndataType: [null],
-      fontsyle:[null],
-      backgroundcolor:[null],
-      fontcolor:[null],
-      fontsize:[null]
+      fontsyle: [null],
+      backgroundcolor: [null],
+      fontcolor: [null],
+      fontsize: [null]
     });
     this.editing = {
       allowEditing: true,
@@ -254,7 +264,7 @@ export class AppComponent {
       mode: 'Dialog',
       newRowPosition: 'Below',
     };
- this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel'];
+    this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel'];
     this.editparams = { params: { format: 'n' } };
   }
 
@@ -275,8 +285,8 @@ export class AppComponent {
     }
     // Rows Info
     if (args.item.id === 'MultiSelect') {
-      if (this.selectOptions !== null && this.selectOptions !== undefined && this.selectOptions!==Object) {
-        this.selectOptions =  Object ;
+      if (this.selectOptions !== null && this.selectOptions !== undefined && this.selectOptions !== Object) {
+        this.selectOptions = Object;
         this.grid!.refreshColumns();
         this.grid!.refresh();
       } else {
@@ -292,7 +302,7 @@ export class AppComponent {
           mode: 'Batch',
           newRowPosition: 'Top'
         }),
-        this.grid!.refresh();
+          this.grid!.refresh();
       }
     }
     if (args.item.id === 'customCopy') {
@@ -302,36 +312,36 @@ export class AppComponent {
         allowDeleting: true,
         mode: 'Batch',
       }),
-      this.grid!.copy();
+        this.grid!.copy();
     } else if (args.item.id === 'customPaste') {
       var rowIndex = this.rowIndex;
       var cellIndex = this.cellIndex;
       var copyContent = (this.grid!.clipboardModule as any).copyContent;
-      if(this.flag){
+      if (this.flag) {
         for (var i = 0; i < this.cutIndex.length; i++) {
-          var rowInfo  = this.grid!.getRowInfo(this.grid!.getRowByIndex(this.cutIndex[i].rowIndex)) as any
+          var rowInfo = this.grid!.getRowInfo(this.grid!.getRowByIndex(this.cutIndex[i].rowIndex)) as any
           for (var j = 0; j < this.fieldData.length; j++) {
-              if (rowInfo.rowData[this.fieldData[j]] != '') {
-                  this.grid!.updateCell(this.cutIndex[i].rowIndex, this.fieldData[j], '');
-              }
+            if (rowInfo.rowData[this.fieldData[j]] != '') {
+              this.grid!.updateCell(this.cutIndex[i].rowIndex, this.fieldData[j], '');
+            }
           }
+        }
+
+
+        this.grid!.paste(copyContent, rowIndex!, cellIndex!);
       }
-  
-  
-      this.grid!.paste(copyContent, rowIndex!, cellIndex!);
+      else {
+        this.grid!.paste(copyContent, rowIndex!, cellIndex!);
       }
-      else{
-         this.grid!.paste(copyContent, rowIndex!, cellIndex!);
-      }
-  
+
     }
-    if(args.item.id==='customcut'){
+    if (args.item.id === 'customcut') {
       this.flag = true;
       for (var i = 0; i < this.grid!.getSelectedRowCellIndexes()[0].cellIndexes.length; i++) {
         this.fieldData.push(this.grid!.grid.getColumnByIndex(this.grid!.getSelectedRowCellIndexes()[0].cellIndexes[i]).field);
-    }
-    this.cutIndex = this.grid!.getSelectedRowCellIndexes();
-    this.grid!.copy();
+      }
+      this.cutIndex = this.grid!.getSelectedRowCellIndexes();
+      this.grid!.copy();
     }
   }
 
@@ -423,12 +433,108 @@ export class AppComponent {
       debugger;
       if (this.grid!.getSelectedRecords().length) {
         this.grid!.startEdit();
+        
       } else {
         alert('Select any row');
       }
+      this.contextmenu?.close();
     }
-    
-  
+
+    if (args.item.id === 'drag') {
+      if (this.grid!.allowRowDragAndDrop) {
+        this.grid!.allowRowDragAndDrop = false;
+        this.grid!.refresh();
+      } else {
+        this.grid!.allowRowDragAndDrop = true;
+        this.selectOptions = { type: 'Multiple' };
+
+        this.grid!.showColumnChooser = true;
+        this.grid!.refreshColumns();
+        this.toolbar = ['ColumnChooser'];
+        this.grid!.refresh();
+      }
+      this.contextmenu?.close();
+    }
+    // Rows Info
+    if (args.item.id === 'MultiSelect') {
+      if (this.selectOptions !== null && this.selectOptions !== undefined && this.selectOptions !== Object) {
+        this.selectOptions = Object;
+        this.grid!.refreshColumns();
+        this.grid!.refresh();
+      } else {
+        this.selectOptions = {
+          type: 'Multiple',
+          mode: 'Cell',
+          cellSelectionMode: 'Box',
+        };
+        (this.editing = {
+          allowEditing: true,
+          allowAdding: true,
+          allowDeleting: true,
+          mode: 'Batch',
+          newRowPosition: 'Top'
+        }),
+          this.grid!.refresh();
+          this.contextmenu?.close();
+      }
+    }
+    if (args.item.id === 'customCopy') {
+      (this.editing = {
+        allowEditing: true,
+        allowAdding: true,
+        allowDeleting: true,
+        mode: 'Batch',
+      }),
+        this.grid!.copy();
+    } else if (args.item.id === 'customPaste') {
+      var rowIndex = this.rowIndex;
+      var cellIndex = this.cellIndex;
+      var copyContent = (this.grid!.clipboardModule as any).copyContent;
+      if (this.flag) {
+        for (var i = 0; i < this.cutIndex.length; i++) {
+          var rowInfo = this.grid!.getRowInfo(this.grid!.getRowByIndex(this.cutIndex[i].rowIndex)) as any
+          for (var j = 0; j < this.fieldData.length; j++) {
+            if (rowInfo.rowData[this.fieldData[j]] != '') {
+              this.grid!.updateCell(this.cutIndex[i].rowIndex, this.fieldData[j], '');
+            }
+          }
+        }
+
+
+        this.grid!.paste(copyContent, rowIndex!, cellIndex!);
+      }
+      else {
+        this.grid!.paste(copyContent, rowIndex!, cellIndex!);
+      }
+
+    }
+    if (args.item.id === 'customcut') {
+      this.flag = true;
+      for (var i = 0; i < this.grid!.getSelectedRowCellIndexes()[0].cellIndexes.length; i++) {
+        this.fieldData.push(this.grid!.grid.getColumnByIndex(this.grid!.getSelectedRowCellIndexes()[0].cellIndexes[i]).field);
+      }
+      this.cutIndex = this.grid!.getSelectedRowCellIndexes();
+      this.grid!.copy();
+    }
+
+    if (args.item.id === 'delete') {
+
+      if (this.grid!.getSelectedRecords().length) {
+        this.grid!.deleteRecord();
+      } else {
+        alert('Select any row');
+      }
+      this.contextmenu?.close();
+    }
+    if (args.item.id === 'addrow') {
+
+      if (this.grid!.getSelectedRecords().length) {
+        this.grid!.addRecord();
+      } else {
+        alert('Select any row');
+      }
+      this.contextmenu?.close();
+    }
     // if (args.item.id === 'drag') {
     //   if (this.grid!.allowRowDragAndDrop) {
     //     this.grid!.allowRowDragAndDrop = false;
@@ -469,17 +575,6 @@ export class AppComponent {
         this.grid!.refreshColumns();
       }
     }
-    if (args.item.id === 'customCopy') {
-      this.grid!.copy();
-      this.contextmenu!.close();
-    } else if (args.item.id === 'customPaste') {
-      var rowIndex = this.rowIndex;
-      var cellIndex = this.cellIndex;
-
-      // var copysContent = new this.grid!.clipboardModule.copyContent;
-
-      //this.grid!.paste(copyContent, rowIndex, cellIndex);
-    }
 
     // console.log(this.grid!.getColumnByField('CustomerID'));
     // this.grid!.getColumnByField('CustomerID').freeze = 'Left' ;
@@ -496,7 +591,7 @@ export class AppComponent {
     // });
     // contextMenuObj.element.appendChild(check);
     // if (arg.element.id == 'drag' || arg.element.id == 'MultiSelect') {
-   
+
     // }
     if (arg.event.target.closest('.e-headercell') != null) {
       this.columnIndex = parseInt(
@@ -525,7 +620,7 @@ export class AppComponent {
   }
   public itemRenderRows(args: any) {
     debugger;
-  
+
     if (args.element.id == 'drag' || args.element.id == 'MultiSelect') {
       let check: Element = createCheckBox(createElement, false, {
         label: args.item.text,
@@ -536,26 +631,24 @@ export class AppComponent {
     }
   }
 
-       // customize header-cell styles 
-       headerCellInfo(args: any){ 
-         debugger;
-        if(args.cell.column.field == 'CustomerName'){ 
-            args.node.classList.add('e-cus') 
-        } 
-    } 
+  // customize header-cell styles 
+  headerCellInfo(args: any) {
+    if (args.cell.column.field == 'CustomerName') {
+      args.node.classList.add('e-cus')
+    }
+  }
 
-  
-    // customize cell styles 
-    queryCellInfo(args: any){ 
-      debugger;
-      this.emtyarray!=  JSON.parse(localStorage.getItem('gridCol')!);
-        if(this.emtyarray.find(x=>x.field==args.column.field)){ 
-         let color= this.emtyarray.find(x=>x.field==args.column.field);
-            args.cell.style.backgroundColor = color.celltype;
-           
-           // args.cell.classList.add('font-size',this.form.value['fontsize']);
-          }
-      }
+
+  // customize cell styles 
+  queryCellInfo(args: any) {
+    this.emtyarray != JSON.parse(localStorage.getItem('gridCol')!);
+    if (this.emtyarray.find(x => x.field == args.column.field)) {
+      let color = this.emtyarray.find(x => x.field == args.column.field);
+      args.cell.style.backgroundColor = color.celltype;
+
+      // args.cell.classList.add('font-size',this.form.value['fontsize']);
+    }
+  }
   public beforeClose(args: BeforeOpenCloseMenuEventArgs) {
     if ((args.event.target as Element).closest('.e-menu-item')) {
       args.cancel = true;
@@ -629,27 +722,27 @@ export class AppComponent {
           headerText: this.form.value['headerText'],
           width: this.form.value['columnwidth'],
           type: this.form.value['columndataType'],
-          celltype:this.form.value['fontsyle']
-         // customAttributes: { class: this.form.value['fontsyle'] }
+          celltype: this.form.value['fontsyle']
+          // customAttributes: { class: this.form.value['fontsyle'] }
 
         };
 
-        if( localStorage.getItem("gridCol")===null ||  localStorage.getItem("gridCol")===undefined){
-         
-         this.emtyarray!.push(p);
-          localStorage.setItem("gridCol", JSON.stringify(this.emtyarray!));  
+        if (localStorage.getItem("gridCol") === null || localStorage.getItem("gridCol") === undefined) {
+
+          this.emtyarray!.push(p);
+          localStorage.setItem("gridCol", JSON.stringify(this.emtyarray!));
 
         }
-        else{
-      
-         this.emtyarray!=  JSON.parse(localStorage.getItem('gridCol')!);
-         this.emtyarray!.push(p);
-         localStorage.setItem("gridCol", JSON.stringify(this.emtyarray!));  
-     
+        else {
+
+          this.emtyarray != JSON.parse(localStorage.getItem('gridCol')!);
+          this.emtyarray!.push(p);
+          localStorage.setItem("gridCol", JSON.stringify(this.emtyarray!));
+
         }
         this.columns.push(p);
-     
-       // this.form.reset();
+
+        // this.form.reset();
         this.Dialog.hide();
       }
     } else {
