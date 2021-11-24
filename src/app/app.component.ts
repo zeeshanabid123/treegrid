@@ -227,11 +227,13 @@ export class AppComponent {
         text: 'Row Drag and drop enable',
         id: 'drag',
         target: '.e-content',
+        iconCss: 'c-custom',
       },
       {
         text: 'Click to Enable MultiSelect',
         id: 'MultiSelect',
         target: '.e-content',
+        iconCss: 'c-custom',
       },
       { text: 'Copy', id: 'customCopy', target: '.e-content', },
       { text: 'Paste', id: 'customPaste', target: '.e-content', },
@@ -581,18 +583,33 @@ export class AppComponent {
     // this.data = this.data;
     // this.grid.editModule.batchSave();
   }
-
+  isInitialLoad = true;
   contextMenuOpen(arg: any) {
     debugger;
-    // let contextMenuObj = (arg.element as any).ej2_instances[0];
-    // let check: Element = createCheckBox(createElement, false, {
-    //   label: 'test',
-    //   checked: 'Option 2' == 'Option 2' ? true : false,
-    // });
-    // contextMenuObj.element.appendChild(check);
-    // if (arg.element.id == 'drag' || arg.element.id == 'MultiSelect') {
+    if (this.isInitialLoad) {
+      this.isInitialLoad = false;
+      let parentNode : any[] = [];
+      var customEle = arg.element.querySelectorAll('.c-custom');
+      if (customEle.length) {
+        customEle.forEach((innerEle: any) => {
+          parentNode.push(innerEle.parentElement );
+        });
+        console.log(parentNode);
+        parentNode.forEach((ele :any) => {
+          var text = ele.textContent;
+          ele.innerText = '';
+          let inputEle = createElement('input') as any;
+          inputEle.type   = 'checkbox';
 
-    // }
+          inputEle.setAttribute('class', 'e-checkbox');
+          ele.prepend(inputEle);
+          let spanEle = createElement('span');
+          spanEle.textContent = text;
+          spanEle.setAttribute('class', 'e-checkboxspan');
+          ele.appendChild(spanEle);
+        });
+      }
+    }
     if (arg.event.target.closest('.e-headercell') != null) {
       this.columnIndex = parseInt(
         arg.event.target.closest('.e-headercell').ariaColIndex

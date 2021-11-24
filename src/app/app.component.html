@@ -2,15 +2,18 @@
 <ejs-treegrid #grid [dataSource]='data' 
 id="gridcomp" 
 [selectionSettings]='selectOptions' 
+[contextMenuItems]="contextMenuItems"
+(contextMenuOpen)="contextMenuOpen($event)"
+    (contextMenuClick)="contextMenuClick($event)"
 allowReordering='true'
 (queryCellInfo)='queryCellInfo($event)' (headerCellInfo)='headerCellInfo($event)'
 [allowResizing]='true'  
 [treeColumnIndex]='1' [columns]='columns'  [pageSettings]='pageSettings' [editSettings]='editing' [toolbar]='toolbar'>
 
 </ejs-treegrid>
-<div>
+<!-- <div>
   <ejs-contextmenu #contextmenu  [items]='menuItems'   target=".e-content" (select)='select($event)'  (beforeItemRender)='itemRenderRows($event)' (beforeOpen)="contextMenuOpen($event)"  (beforeClose)='beforeCloserows($event)'></ejs-contextmenu>
-</div>
+</div> -->
 
 <div>
 <ejs-contextmenu #headercontextmenu target=".e-gridheader"
