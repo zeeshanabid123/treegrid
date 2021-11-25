@@ -21,4 +21,34 @@
   ejs-dialog {
     max-height: 775px !important;
   }
-  
+  /* custom code start*/
+#default-control {
+  margin: 30px auto;
+  padding-top: 50px;
+  text-align: center;
+}
+
+#default-control .row {
+  width: 100%;
+}
+
+#default-control h4 {
+  color: rgba(0, 0, 0, 0.64);
+  margin-bottom: 20px;
+}
+
+.highcontrast #default-control h4 {
+  color: rgba(255, 255, 255, 0.64);
+}
+
+.e-bigger #default-control h4 {
+  font-size: 20px;
+}
+.form-control{
+width: 75%;
+}
+.e-colorpicker-wrapper{
+padding-top :30px;
+display:block;
+}
+/* custom code end*/

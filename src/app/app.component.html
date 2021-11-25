@@ -6,9 +6,11 @@ id="gridcomp"
 (contextMenuOpen)="contextMenuOpen($event)"
     (contextMenuClick)="contextMenuClick($event)"
 allowReordering='true'
+enableAdaptiveUI='true'
+[enablePersistence]='true'
 (queryCellInfo)='queryCellInfo($event)' (headerCellInfo)='headerCellInfo($event)'
 [allowResizing]='true'  
-[treeColumnIndex]='1' [columns]='columns'  [pageSettings]='pageSettings' [editSettings]='editing' [toolbar]='toolbar'>
+[treeColumnIndex]='1' [columns]='columns'  [pageSettings]='pageSettings' [editSettings]='editing' >
 
 </ejs-treegrid>
 <!-- <div>
@@ -67,10 +69,20 @@ allowReordering='true'
 
 <div class="form-group" style="padding-top: 11px;">
   <div class="e-float-input">
-    <input type="text" id="fontsyle" name="fontsyle" class="required" formControlName="fontsyle">
+    <input type="color" id="backgroundcolor" name="backgroundcolor" class="required" formControlName="backgroundcolor">
 
     <span class="e-float-line"></span>
-    <label class="e-float-text e-label-top" for="contact">Font Style</label>
+    <label class="e-float-text e-label-top" for="contact">Background Color</label>
+  </div>
+  <!-- <app-field-error-display [displayError]="isFieldValid('contact')" errorMsg="* Enter your contact number">
+  </app-field-error-display> -->
+</div>
+
+<div class="form-group" style="padding-top: 11px;">
+  <div class="e-float-input">
+    <ejs-dropdownlist id='ddlelement2' #ddlelement2 [dataSource]='customaligmentdropdown' placeholder="Text Alignment"  id="textaligement" formControlName="textaligement" name="textaligement" [fields]='aligementfields' ></ejs-dropdownlist>
+
+    <span class="e-float-line"></span>
   </div>
   <!-- <app-field-error-display [displayError]="isFieldValid('contact')" errorMsg="* Enter your contact number">
   </app-field-error-display> -->

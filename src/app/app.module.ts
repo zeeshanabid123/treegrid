@@ -10,7 +10,7 @@ import { ColumnChooserService, ContextMenuService, EditService, ExcelExportServi
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { ColorPickerModule } from '@syncfusion/ej2-angular-inputs';
 @NgModule({
   declarations: [
     AppComponent
@@ -28,7 +28,8 @@ import { AppComponent } from './app.component';
     FormsModule,
     CommonModule,
     ToolbarModule,
-    CheckBoxModule
+    CheckBoxModule,
+    ColorPickerModule
   ],
   providers: [PageService,
     SortService,

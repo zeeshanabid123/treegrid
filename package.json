@@ -20,6 +20,7 @@
     "@angular/router": "~13.0.0",
     "@syncfusion/ej2-angular-buttons": "^19.3.44",
     "@syncfusion/ej2-angular-dropdowns": "^19.3.48",
+    "@syncfusion/ej2-angular-inputs": "^19.3.53",
     "@syncfusion/ej2-angular-navigations": "^19.3.46",
     "@syncfusion/ej2-angular-popups": "^19.3.47",
     "@syncfusion/ej2-angular-treegrid": "^19.3.48",

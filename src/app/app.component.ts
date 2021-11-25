@@ -78,14 +78,15 @@ export class AppComponent {
 
   @ViewChild('ddlelement')
   public dropDownListObject = DropDownListComponent;
+  @ViewChild('ddlelement2') public dropDownListObject2 = DropDownListComponent;
   // defined the array of data
   public dropdowndata: { [key: string]: Object }[] = [{ Id: 'string', Game: 'string' },
   { Id: 'number', Game: 'number' }, { Id: 'boolean', Game: 'boolean' }, { Id: 'date', Game: 'date' }];
   public fields: Object = { text: 'Game', value: 'Id' };
 
-  public customfontdropdown: { [key: string]: Object }[] = [{ Id: 'customFontColorRed', font: 'customFontColorRed' },
-  { Id: 'customFontColorGreen', font: 'customFontColorGreen' }];
-  public fontfields: Object = { text: 'font', value: 'Id' };
+  public customaligmentdropdown: { [key: string]: Object }[] = [{ Id: 'Right', aligement: 'Right' },
+  { Id: 'Left', aligement: 'Left' }];
+  public aligementfields: Object = { text: 'aligement', value: 'Id' };
   public uploadInput: string = '';
   public Submit(): void {
     this.onFormSubmit();
@@ -246,9 +247,6 @@ export class AppComponent {
       'Save',
       'Cancel',
     ];
-
-
-
     this.form = this.formBuilder.group({
       fieldName: [null, Validators.required],
       headerText: [null],
@@ -256,6 +254,7 @@ export class AppComponent {
       columndataType: [null],
       fontsyle: [null],
       backgroundcolor: [null],
+      textaligement: [null],
       fontcolor: [null],
       fontsize: [null]
     });
@@ -266,7 +265,6 @@ export class AppComponent {
       mode: 'Dialog',
       newRowPosition: 'Below',
     };
-    this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel'];
     this.editparams = { params: { format: 'n' } };
   }
 
@@ -279,10 +277,11 @@ export class AppComponent {
       } else {
         this.grid!.allowRowDragAndDrop = true;
         this.selectOptions = { type: 'Multiple' };
+        this.grid!.toolbarModule.enableItems(['Add', 'Edit', 'Delete', 'Update', 'Cancel'], true);
         this.grid!.refresh();
         this.grid!.showColumnChooser = true;
         this.grid!.refreshColumns();
-        this.toolbar = ['ColumnChooser'];
+
       }
     }
     // Rows Info
@@ -348,14 +347,26 @@ export class AppComponent {
   }
 
   EditColumn(columnName: any) {
+    debugger;
     let singlecolumn = this.columns.find(
       (x: { field: any }) => x.field == columnName
     );
+
+    this.emtyarray != JSON.parse(localStorage.getItem('gridCol')!);
+    if(this.emtyarray.length>0){
+      if(this.emtyarray.find(x => x.field == singlecolumn.field)){
+      this.form.controls['backgroundcolor'].setValue(this.emtyarray.find(x => x.field == singlecolumn.field).celltype);
+        
+      }
+    }
+  
     this.Dialog.show();
     this.form.controls['fieldName'].setValue(singlecolumn.field);
     this.form.controls['headerText'].setValue(singlecolumn.headerText);
     this.form.controls['columnwidth'].setValue(singlecolumn.width);
     this.form.controls['columndataType'].setValue(singlecolumn.type);
+    this.form.controls['textaligement'].setValue(singlecolumn.textAlign);
+
     //this.form.controls['fontsyle'].setValue(singlecolumn.customAttributes);
 
   }
@@ -435,7 +446,7 @@ export class AppComponent {
       debugger;
       if (this.grid!.getSelectedRecords().length) {
         this.grid!.startEdit();
-        
+
       } else {
         alert('Select any row');
       }
@@ -477,7 +488,7 @@ export class AppComponent {
           newRowPosition: 'Top'
         }),
           this.grid!.refresh();
-          this.contextmenu?.close();
+        this.contextmenu?.close();
       }
     }
     if (args.item.id === 'customCopy') {
@@ -588,18 +599,18 @@ export class AppComponent {
     debugger;
     if (this.isInitialLoad) {
       this.isInitialLoad = false;
-      let parentNode : any[] = [];
+      let parentNode: any[] = [];
       var customEle = arg.element.querySelectorAll('.c-custom');
       if (customEle.length) {
         customEle.forEach((innerEle: any) => {
-          parentNode.push(innerEle.parentElement );
+          parentNode.push(innerEle.parentElement);
         });
         console.log(parentNode);
-        parentNode.forEach((ele :any) => {
+        parentNode.forEach((ele: any) => {
           var text = ele.textContent;
           ele.innerText = '';
           let inputEle = createElement('input') as any;
-          inputEle.type   = 'checkbox';
+          inputEle.type = 'checkbox';
 
           inputEle.setAttribute('class', 'e-checkbox');
           ele.prepend(inputEle);
@@ -727,9 +738,33 @@ export class AppComponent {
         singlecolumn.headerText = this.form.value['headerText'];
         singlecolumn.width = this.form.value['columnwidth'];
         singlecolumn.type = this.form.value['columndataType'];
+        singlecolumn.textAlign = this.form.value['textaligement'];
         //singlecolumn.customAttributes =  this.form.value['fontsyle'];
 
+        let p = {
+          field: this.form.value['fieldName'],
+          headerText: this.form.value['headerText'],
+          width: this.form.value['columnwidth'],
+          type: this.form.value['columndataType'],
+          celltype: this.form.value['backgroundcolor'],
+          textAlign: this.form.value['textaligement']
+          // customAttributes: { class: this.form.value['fontsyle'] }
 
+        };
+
+        if (localStorage.getItem("gridCol") === null || localStorage.getItem("gridCol") === undefined) {
+
+          this.emtyarray!.push(p);
+          localStorage.setItem("gridCol", JSON.stringify(this.emtyarray!));
+
+        }
+        else {
+
+          this.emtyarray != JSON.parse(localStorage.getItem('gridCol')!);
+          this.emtyarray!.push(p);
+          localStorage.setItem("gridCol", JSON.stringify(this.emtyarray!));
+
+        }
         this.grid!.refreshColumns();
         this.form.reset();
         this.Dialog.hide();
@@ -739,7 +774,7 @@ export class AppComponent {
           headerText: this.form.value['headerText'],
           width: this.form.value['columnwidth'],
           type: this.form.value['columndataType'],
-          celltype: this.form.value['fontsyle']
+          celltype: this.form.value['backgroundcolor']
           // customAttributes: { class: this.form.value['fontsyle'] }
 
         };
