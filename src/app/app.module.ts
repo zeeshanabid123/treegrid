@@ -28,8 +28,7 @@ import { ColorPickerModule } from '@syncfusion/ej2-angular-inputs';
     FormsModule,
     CommonModule,
     ToolbarModule,
-    CheckBoxModule,
-    ColorPickerModule
+    CheckBoxModule
   ],
   providers: [PageService,
     SortService,
